@@ -106,36 +106,60 @@ function renderBag() {
 
   itemsEl.innerHTML = bag
     .map(
-      (item) =>
-        '<div class="bag-item">' +
-          "<div>" +
-            "<div>" + item.name + "</div>" +
-            '<small style="color:#a1a1aa;">' + (item.finish || "") + " · " + formatRand(item.price) + "</small>" +
-          "</div>" +
-          '<div class="bag-qty">' +
-            '<button type="button" onclick="updateQty(' + item.id + ', -1)">-</button>' +
-            "<span>" + item.qty + "</span>" +
-            '<button type="button" onclick="updateQty(' + item.id + ', 1)">+</button>' +
-          "</div>" +
-        "</div>"
+      (item) => `
+        <div class="bag-item">
+          <div>
+            <div>${item.name}</div>
+            <small style="color:#a1a1aa;">${item.finish || ""} · ${formatRand(item.price)}</small>
+          </div>
+          <div class="bag-qty">
+            <button type="button" onclick="updateQty(${item.id}, -1)">-</button>
+            <span>${item.qty}</span>
+            <button type="button" onclick="updateQty(${item.id}, 1)">+</button>
+          </div>
+        </div>
+      `
     )
     .join("");
 }
 
+function handleImageFallback(img) {
+  const step = Number(img.dataset.fallbackStep || 0);
+  const base = img.dataset.base;
+  const exts = [".jpeg", ".png", ".webp", ".JPG", ".JPEG"];
+
+  if (base && step < exts.length) {
+    img.dataset.fallbackStep = String(step + 1);
+    img.src = base + exts[step];
+    return;
+  }
+
+  img.onerror = null;
+  img.src = FALLBACK_IMG;
+}
+
 function createProductCard(product) {
-  return (
-    '<article class="product-card">' +
-      '<div class="product-img-wrap">' +
-        '<img src="' + product.image + '" alt="' + product.name + " (" + product.finish + ')" onerror="this.onerror=null;this.src=\'' + FALLBACK_IMG + '\';" />' +
-      "</div>" +
-      '<div class="product-body">' +
-        '<span class="product-cat">' + product.category + " · " + product.finish + "</span>" +
-        '<h3 class="product-title">' + product.name + "</h3>" +
-        '<div class="product-price">' + formatRand(product.price) + "</div>" +
-        '<button type="button" class="add-btn" onclick="addToBag(' + product.id + ')">ADD TO BAG</button>' +
-      "</div>" +
-    "</article>"
-  );
+  const base = product.image.replace(/\.[^/.]+$/, "");
+  return `
+    <article class="product-card">
+      <div class="product-img-wrap">
+        <img
+          src="${product.image}"
+          data-base="${base}"
+          data-fallback-step="0"
+          alt="${product.name} (${product.finish})"
+          loading="lazy"
+          onerror="handleImageFallback(this)"
+        />
+      </div>
+      <div class="product-body">
+        <span class="product-cat">${product.category} · ${product.finish}</span>
+        <h3 class="product-title">${product.name}</h3>
+        <div class="product-price">${formatRand(product.price)}</div>
+        <button type="button" class="add-btn" onclick="addToBag(${product.id})">ADD TO BAG</button>
+      </div>
+    </article>
+  `;
 }
 
 function renderProducts(category = "all") {
@@ -184,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = document.getElementById("customerName")?.value.trim() || "Customer";
     const contact = document.getElementById("customerContact")?.value.trim() || "Not provided";
     const lines = bag.map(
-      (item) => "- " + item.name + " (" + item.finish + ") x" + item.qty + " (" + formatRand(item.price * item.qty) + ")"
+      (item) => `- ${item.name} (${item.finish}) x${item.qty} (${formatRand(item.price * item.qty)})`
     );
     const total = bag.reduce((sum, item) => sum + item.price * item.qty, 0);
 
