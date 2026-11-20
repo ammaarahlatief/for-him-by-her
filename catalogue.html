@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catalogue — FOR HIM by Her</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-lockup" aria-label="FOR HIM by Her — Est. 2026 — Jewellery for Men">
+        <span class="brand-top">FOR HIM</span>
+        <span class="brand-script">by Her</span>
+        <span class="brand-meta">
+          <span>Est.</span>
+          <span>2026</span>
+        </span>
+        <span class="brand-sub">JEWELLERY FOR MEN</span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html">HOME</a>
+        <a href="catalogue.html" class="active">CATALOGUE</a>
+        <a href="index.html#guide">CARE &amp; DELIVERY</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+
+      <button type="button" id="openBagBtn" class="bag-btn">
+        BAG (<span id="bagCount">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="catalogue-hero">
+      <div class="container">
+        <p class="eyebrow">FULL COLLECTION</p>
+        <h1>The Catalogue</h1>
+        <p class="hero-copy">
+          Silver-plated, gold-plated, black pieces, and silicone. Filter by category and add pieces straight to your bag.
+        </p>
+
+        <div class="filter-bar" role="group" aria-label="Filter products">
+          <button type="button" class="filter-btn active" data-category="all">All</button>
+          <button type="button" class="filter-btn" data-category="necklaces">Necklaces</button>
+          <button type="button" class="filter-btn" data-category="bracelets">Bracelets</button>
+          <button type="button" class="filter-btn" data-category="rings">Rings</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="catalogueGrid" class="product-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="bagOverlay" class="bag-overlay"></div>
+  <aside id="bagDrawer" class="bag-drawer" aria-label="Shopping Bag">
+    <div class="bag-header">
+      <h2>Your Bag</h2>
+      <button type="button" id="closeBagBtn" class="icon-btn" aria-label="Close bag">×</button>
+    </div>
+    <div id="bagItems" class="bag-items"></div>
+    <div class="bag-footer">
+      <div class="bag-total">
+        <span>Subtotal</span>
+        <strong id="bagSubtotal">R0</strong>
+      </div>
+      <input type="text" id="customerName" class="bag-input" placeholder="Your Name" />
+      <input type="text" id="customerContact" class="bag-input" placeholder="WhatsApp Number or Email" />
+      <button type="button" id="checkoutBtn" class="btn-primary full-width">SEND ORDER ON WHATSAPP</button>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div>
+        <div class="footer-brand">FOR HIM <span>by Her</span></div>
+        <p class="footer-note">Silver-Plated, Gold-Plated &amp; Black Men's Jewellery · Aramex SA (1–2 weeks)</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">HOME</a>
+        <a href="catalogue.html">CATALOGUE</a>
+        <a href="https://wa.me/27000000000" target="_blank" rel="noopener">WHATSAPP</a>
+        <a href="https://instagram.com/forhimbyher" target="_blank" rel="noopener">INSTAGRAM</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 FOR HIM by Her. Customer details are used solely to process orders (POPIA compliant).</p>
+      <p>Designed &amp; built by <strong>Ammaarah Latief</strong> · Aura Web Studio</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

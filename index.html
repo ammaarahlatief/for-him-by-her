@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOR HIM by Her — Men's Jewellery</title>
+  <link rel="icon" type="image/jpeg" href="images/for-him-by-her-logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-lockup" aria-label="FOR HIM by Her — Est. 2026 — Jewellery for Men">
+        <span class="brand-top">FOR HIM</span>
+        <span class="brand-script">by Her</span>
+        <span class="brand-meta">
+          <span>Est.</span>
+          <span>2026</span>
+        </span>
+        <span class="brand-sub">JEWELLERY FOR MEN</span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="active">HOME</a>
+        <a href="catalogue.html">CATALOGUE</a>
+        <a href="#guide">CARE &amp; DELIVERY</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <button type="button" id="openBagBtn" class="bag-btn">
+        BAG (<span id="bagCount">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">CAPE TOWN · EST. 2026</p>
+        <h1>Everyday silver-plated, gold-plated &amp; black pieces, and silicone.</h1>
+        <p class="hero-copy">
+          Chains, bracelets, and rings crafted for daily wear in silver-plated, gold-plated, black, and silicone finishes.
+        </p>
+        <div class="hero-actions">
+          <a href="catalogue.html" class="btn-primary">SHOP CATALOGUE</a>
+          <a href="#guide" class="btn-outline">CARE &amp; DELIVERY</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">PICKED FOR YOU</p>
+            <h2>Featured Pieces</h2>
+          </div>
+          <a href="catalogue.html" class="text-link">VIEW ALL 24 PIECES →</a>
+        </div>
+        <div id="featuredGrid" class="product-grid"></div>
+      </div>
+    </section>
+
+    <section class="section section-bordered" id="guide">
+      <div class="container">
+        <div class="info-grid">
+          <article class="info-card">
+            <p class="eyebrow">01 · CARE GUIDE</p>
+            <h3>Looking after your pieces</h3>
+            <p>
+              Our pieces come in <strong>silver-plated</strong>, <strong>gold-plated</strong>, <strong>black</strong>, and <strong>silicone</strong> finishes.
+              Wipe gently with a soft dry cloth after wearing, avoid harsh chemicals, perfume, cologne, and heavy moisture or workouts, and store pieces separately.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <p class="eyebrow">02 · DELIVERY</p>
+            <h3>Aramex Nationwide &amp; Cape Town</h3>
+            <p>
+              Orders are confirmed on WhatsApp once payment clears. Nationwide courier delivery via <strong>Aramex</strong> takes <strong>1–2 weeks</strong>, with local Cape Town options on request.
+            </p>
+          </article>
+        </div>
+
+        <div class="faq-box" id="faq">
+          <p class="eyebrow">QUICK ANSWERS</p>
+          <h2>FAQ</h2>
+
+          <details class="faq-item">
+            <summary>What finishes are in the collection?</summary>
+            <p>Pieces come in silver-plated, gold-plated, and black finishes across bracelets, necklaces, and silicone rings.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How do I order?</summary>
+            <p>Add items to your bag, enter your name and contact details, and send your order straight to WhatsApp.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How long does delivery take?</summary>
+            <p>Aramex nationwide delivery takes 1–2 weeks after confirmation, or ask on WhatsApp about Cape Town options.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="bagOverlay" class="bag-overlay"></div>
+  <aside id="bagDrawer" class="bag-drawer" aria-label="Shopping Bag">
+    <div class="bag-header">
+      <h2>Your Bag</h2>
+      <button type="button" id="closeBagBtn" class="icon-btn" aria-label="Close bag">×</button>
+    </div>
+    <div id="bagItems" class="bag-items"></div>
+    <div class="bag-footer">
+      <div class="bag-total">
+        <span>Subtotal</span>
+        <strong id="bagSubtotal">R0</strong>
+      </div>
+      <input type="text" id="customerName" class="bag-input" placeholder="Your Name" />
+      <input type="text" id="customerContact" class="bag-input" placeholder="WhatsApp Number or Email" />
+      <button type="button" id="checkoutBtn" class="btn-primary full-width">SEND ORDER ON WHATSAPP</button>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div>
+        <div class="footer-brand">FOR HIM <span>by Her</span></div>
+        <p class="footer-note">Silver-Plated, Gold-Plated &amp; Black Men's Jewellery · Aramex SA (1–2 weeks)</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">HOME</a>
+        <a href="catalogue.html">CATALOGUE</a>
+        <a href="https://wa.me/27839561961" target="_blank" rel="noopener">WHATSAPP</a>
+        <a href="https://instagram.com/forhimbyher_" target="_blank" rel="noopener">INSTAGRAM</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 FOR HIM by Her. Customer details are used solely to process orders (POPIA compliant).</p>
+      <p>Designed &amp; built by <strong>Ammaarah Latief</strong> · Aura Web Studio</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
