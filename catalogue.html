@@ -39,25 +39,45 @@
 
   <main>
     <section class="catalogue-hero">
-      <div class="container">
-        <p class="eyebrow">FULL COLLECTION</p>
-        <h1>The Catalogue</h1>
-        <p class="hero-copy">
-          Silver-plated, gold-plated, black pieces, and silicone. Filter by category and add pieces straight to your bag.
-        </p>
+      <div class="container catalogue-banner">
+        <div class="catalogue-banner-main">
+          <p class="eyebrow">FULL COLLECTION · 23 PIECES</p>
+          <h1>The Catalogue</h1>
+          <p class="hero-copy">
+            Silver-plated, gold-plated, black pieces, and silicone. Filter by category or finish and add pieces straight to your bag.
+          </p>
 
-        <div class="filter-bar" role="group" aria-label="Filter products">
-          <button type="button" class="filter-btn active" data-category="all">All</button>
-          <button type="button" class="filter-btn" data-category="necklaces">Necklaces</button>
-          <button type="button" class="filter-btn" data-category="bracelets">Bracelets</button>
-          <button type="button" class="filter-btn" data-category="rings">Rings</button>
+          <div class="filter-controls">
+            <div class="filter-bar" role="group" aria-label="Filter by category">
+              <button type="button" class="filter-btn active" data-category="all">All</button>
+              <button type="button" class="filter-btn" data-category="necklaces">Necklaces</button>
+              <button type="button" class="filter-btn" data-category="bracelets">Bracelets</button>
+              <button type="button" class="filter-btn" data-category="rings">Rings</button>
+            </div>
+
+            <div class="finish-bar" role="group" aria-label="Filter by finish">
+              <button type="button" class="finish-btn active" data-finish="all">All Finishes</button>
+              <button type="button" class="finish-btn" data-finish="Black">Black</button>
+              <button type="button" class="finish-btn" data-finish="Silver-Plated">Silver-Plated</button>
+              <button type="button" class="finish-btn" data-finish="Gold-Plated">Gold-Plated</button>
+              <button type="button" class="finish-btn" data-finish="Silicone">Silicone</button>
+            </div>
+          </div>
         </div>
+
+        <aside class="catalogue-index-meta" aria-label="Catalogue summary">
+          <div class="meta-box">
+            <span class="meta-label">Showing</span>
+            <strong id="catalogueCount">23 Pieces</strong>
+            <p>Wipe with a soft dry cloth after wear; avoid cologne and heavy moisture.</p>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section catalogue-section">
       <div class="container">
-        <div id="catalogueGrid" class="product-grid"></div>
+        <div id="catalogueGrid" class="product-grid catalogue-grid"></div>
       </div>
     </section>
   </main>

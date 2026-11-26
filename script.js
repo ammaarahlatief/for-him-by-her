@@ -2,7 +2,7 @@ const WHATSAPP_NUMBER = "27839561961";
 const FALLBACK_IMG =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500"><rect width="400" height="500" fill="#1a1a1f"/><text x="50%" y="50%" fill="#a1a1aa" font-family="sans-serif" font-size="14" letter-spacing="2" text-anchor="middle" dominant-baseline="middle">FOR HIM BY HER</text></svg>'
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="#1b1b21"/><text x="50%" y="50%" fill="#a6a4b0" font-family="sans-serif" font-size="13" letter-spacing="2" text-anchor="middle" dominant-baseline="middle">FOR HIM BY HER</text></svg>'
   );
 
 const PRODUCTS = [
@@ -41,6 +41,9 @@ try {
 } catch (_) {
   bag = [];
 }
+
+let activeCategory = "all";
+let activeFinish = "all";
 
 function formatRand(amount) {
   return "R" + (Number(amount) || 0);
@@ -100,7 +103,7 @@ function renderBag() {
   if (!itemsEl) return;
 
   if (!bag.length) {
-    itemsEl.innerHTML = '<p style="color:#a1a1aa;font-size:0.85rem;">Your bag is empty.</p>';
+    itemsEl.innerHTML = '<p style="color:#a6a4b0;font-size:0.84rem;">Your bag is empty.</p>';
     return;
   }
 
@@ -110,12 +113,12 @@ function renderBag() {
         <div class="bag-item">
           <div>
             <div>${item.name}</div>
-            <small style="color:#a1a1aa;">${item.finish || ""} · ${formatRand(item.price)}</small>
+            <small style="color:#a6a4b0;">${item.finish || ""} · ${formatRand(item.price)}</small>
           </div>
           <div class="bag-qty">
-            <button type="button" onclick="updateQty(${item.id}, -1)">-</button>
+            <button type="button" data-qty-id="${item.id}" data-delta="-1">-</button>
             <span>${item.qty}</span>
-            <button type="button" onclick="updateQty(${item.id}, 1)">+</button>
+            <button type="button" data-qty-id="${item.id}" data-delta="1">+</button>
           </div>
         </div>
       `
@@ -140,6 +143,7 @@ function handleImageFallback(img) {
 
 function createProductCard(product) {
   const base = product.image.replace(/\.[^/.]+$/, "");
+  const code = String(product.id).padStart(2, "0");
   return `
     <article class="product-card">
       <div class="product-img-wrap">
@@ -149,32 +153,49 @@ function createProductCard(product) {
           data-fallback-step="0"
           alt="${product.name} (${product.finish})"
           loading="lazy"
-          onerror="handleImageFallback(this)"
         />
       </div>
       <div class="product-body">
-        <span class="product-cat">${product.category} · ${product.finish}</span>
+        <div class="product-top-row">
+          <span class="product-cat">${product.category} · ${product.finish}</span>
+          <span class="piece-num">#${code}</span>
+        </div>
         <h3 class="product-title">${product.name}</h3>
         <div class="product-price">${formatRand(product.price)}</div>
-        <button type="button" class="add-btn" onclick="addToBag(${product.id})">ADD TO BAG</button>
+        <button type="button" class="add-btn" data-add-id="${product.id}">ADD TO BAG</button>
       </div>
     </article>
   `;
 }
 
-function renderProducts(category = "all") {
+function renderProducts() {
   const featuredGrid = document.getElementById("featuredGrid");
   const catalogueGrid = document.getElementById("catalogueGrid");
+  const countLabel = document.getElementById("catalogueCount");
 
   if (featuredGrid) {
     featuredGrid.innerHTML = PRODUCTS.filter((p) => p.featured).map(createProductCard).join("");
   }
 
   if (catalogueGrid) {
-    const filtered =
-      category === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === category);
-    catalogueGrid.innerHTML = filtered.map(createProductCard).join("");
+    const filtered = PRODUCTS.filter((p) => {
+      const catMatch = activeCategory === "all" || p.category === activeCategory;
+      const finMatch = activeFinish === "all" || p.finish === activeFinish;
+      return catMatch && finMatch;
+    });
+
+    if (countLabel) {
+      countLabel.textContent = filtered.length === 1 ? "1 Piece" : filtered.length + " Pieces";
+    }
+
+    catalogueGrid.innerHTML = filtered.length
+      ? filtered.map(createProductCard).join("")
+      : '<p style="color:#a6a4b0;font-size:0.86rem;grid-column:1/-1;">No pieces match that filter combination.</p>';
   }
+
+  document.querySelectorAll(".product-img-wrap img").forEach((img) => {
+    img.addEventListener("error", () => handleImageFallback(img));
+  });
 }
 
 function openBag() {
@@ -188,18 +209,41 @@ function closeBag() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderProducts("all");
+  renderProducts();
   renderBag();
 
   document.getElementById("openBagBtn")?.addEventListener("click", openBag);
   document.getElementById("closeBagBtn")?.addEventListener("click", closeBag);
   document.getElementById("bagOverlay")?.addEventListener("click", closeBag);
 
+  document.addEventListener("click", (e) => {
+    const addBtn = e.target.closest("[data-add-id]");
+    if (addBtn) {
+      addToBag(Number(addBtn.dataset.addId));
+      return;
+    }
+
+    const qtyBtn = e.target.closest("[data-qty-id]");
+    if (qtyBtn) {
+      updateQty(Number(qtyBtn.dataset.qtyId), Number(qtyBtn.dataset.delta));
+    }
+  });
+
   document.querySelectorAll(".filter-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
-      renderProducts(btn.dataset.category);
+      activeCategory = btn.dataset.category || "all";
+      renderProducts();
+    });
+  });
+
+  document.querySelectorAll(".finish-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".finish-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeFinish = btn.dataset.finish || "all";
+      renderProducts();
     });
   });
 
