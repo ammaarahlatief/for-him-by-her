@@ -198,7 +198,15 @@ function renderProducts() {
   });
 }
 
+function closeMobileMenu() {
+  const nav = document.getElementById("mainNav");
+  const toggle = document.getElementById("menuToggleBtn");
+  nav?.classList.remove("open");
+  toggle?.setAttribute("aria-expanded", "false");
+}
+
 function openBag() {
+  closeMobileMenu();
   document.getElementById("bagDrawer")?.classList.add("open");
   document.getElementById("bagOverlay")?.classList.add("open");
 }
@@ -211,6 +219,18 @@ function closeBag() {
 document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   renderBag();
+
+  const menuToggleBtn = document.getElementById("menuToggleBtn");
+  const mainNav = document.getElementById("mainNav");
+
+  menuToggleBtn?.addEventListener("click", () => {
+    const isOpen = mainNav?.classList.toggle("open");
+    menuToggleBtn.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  });
+
+  mainNav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
 
   document.getElementById("openBagBtn")?.addEventListener("click", openBag);
   document.getElementById("closeBagBtn")?.addEventListener("click", closeBag);

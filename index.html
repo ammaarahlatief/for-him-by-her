@@ -24,16 +24,28 @@
         <span class="brand-sub">JEWELLERY FOR MEN</span>
       </a>
 
-      <nav class="main-nav">
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
         <a href="index.html" class="active">HOME</a>
         <a href="catalogue.html">CATALOGUE</a>
         <a href="#guide">CARE &amp; DELIVERY</a>
         <a href="#faq">FAQ</a>
       </nav>
 
-      <button type="button" id="openBagBtn" class="bag-btn">
-        BAG (<span id="bagCount">0</span>)
-      </button>
+      <div class="header-actions">
+        <button type="button" id="openBagBtn" class="bag-btn" aria-label="Open bag">
+          <svg class="bag-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M6 7h12l1 13H5L6 7z" />
+            <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+          </svg>
+          <span>BAG (<span id="bagCount">0</span>)</span>
+        </button>
+
+        <button type="button" id="menuToggleBtn" class="menu-toggle-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
